@@ -23,7 +23,7 @@ console.log(session)
 
   return (
     <html lang="en">
-      <body className={`mx-64 ${roboto.className}`}>
+      <body className={`mx-4 lg:mx-64 ${roboto.className}`}>
         <Hydrate>
         <Nav user={session?.user} expires={session?.expires as string}/>
         {children}
