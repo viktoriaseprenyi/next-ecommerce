@@ -26,14 +26,13 @@ const productWithPrices = await Promise.all(
 return productWithPrices
 };
 
-
+//Home page we render out our product
 export default async function Home() {
   //Fetch function what we made on top to get data(id,name,price,image...)
   const products = await getProducts();
-
   return (
     <main className="grid grid-cols-fluid gap-12 ">
-      {products.map((product)=> <Product key={product.id} id={product.id} name={product.name} image={product.image} unit_amount={product.unit_amount}/>)}
+      {products.map((product)=> <Product key={product.id} id={product.id} name={product.name} image={product.image} unit_amount={product.unit_amount} description={product.description}/>)}
     </main>
   )
 }
