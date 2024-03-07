@@ -1,3 +1,5 @@
+/*This checkout is responsible for loading up the Stripe libraby and initializing Stripe elements for us,
+ also creates payment intents on server side and our api route and pushing back tp our client*/
 "use client"
 
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js"
@@ -6,6 +8,7 @@ import { useCartStore } from "@/store"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import { CheckoutForm } from "./CheckoutForm"
 
 
 const stripePromise = loadStripe(
@@ -15,6 +18,8 @@ const stripePromise = loadStripe(
 export default function Checkout() {
   const cartStore = useCartStore()
   const router = useRouter()
+  /*Authorize a payment, so the client secret gives the ability to confirm the payment and complete the transaction
+  we generate this secret on the server side bc we dont want a user to be able to complete the transaction for us*/
   const [clientSecret, setClientSecret] = useState("")
 
   useEffect(() => {
@@ -39,10 +44,23 @@ export default function Checkout() {
       })
   }, [])
   
+  const options : StripeElementsOptions = {
+    clientSecret,
+    appearance: {
+        theme: 'stripe',
+        labels: 'floating'
+    }
+  }
 
   return (
     <div>
-    <h1>Checkout</h1>
+    {clientSecret && (
+        <div>
+            <Elements options={options} stripe={stripePromise}> {/*Make sure that stripe are loaded*/}
+                <CheckoutForm clientSecret={clientSecret}/>
+            </Elements>
+        </div>
+    )}
     </div>
   )
 }

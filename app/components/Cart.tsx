@@ -22,12 +22,22 @@ const Cart = () => {
       {/*stopPropagation is for when I clicked inside the div it senses link a "toggle" by default so the Cart "modal" closed, stopPropagation allows us not to bubbling up our div to the parent div so does not close by a clicking*/}
       {/*Actual Cart*/}
       <motion.div layout onClick={(e) => e.stopPropagation()} className="bg-white absolute right-0 top-0 w-full lg:w-2/5 h-screen p-12 overflow-y-scroll text-gray-700">
+     {cartStore.onCheckout === "cart" && (
       <button
             onClick={() => cartStore.toggleCart()}
             className="text-sm font-bold pb-12"
           >
             Back to store 🏃
           </button>
+          )}
+           {cartStore.onCheckout === "checkout" && (
+      <button
+            onClick={() => cartStore.setCheckout("cart")}
+            className="text-sm font-bold pb-12"
+          >
+            Check your cart 🌟  
+          </button>
+          )}
           {/*Cart Items*/}
           {cartStore.onCheckout === 'cart' && (
             <>
@@ -69,7 +79,7 @@ const Cart = () => {
         </>
         )}
         {cartStore.cart.length ? <p>Total: {formatPrice(totalPrice)}</p> : ''}
-        {cartStore.cart.length > 0 && (
+        {cartStore.cart.length > 0 && cartStore.onCheckout === 'cart' ? (
         <motion.div layout>
         <button
               onClick={() => cartStore.setCheckout("checkout")}
@@ -77,7 +87,7 @@ const Cart = () => {
             >
               Checkout
             </button>
-      </motion.div>)}
+      </motion.div>) : null}
       {/*Checkout form*/}
       {cartStore.onCheckout === 'checkout' && <Checkout/>}
         <AnimatePresence>
