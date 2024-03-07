@@ -6,6 +6,7 @@ import formatPrice from "@/util/priceFormat"
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5"
 import basket from "@/public/basket.png"
 import {AnimatePresence, motion} from "framer-motion";
+import Checkout from "./Checkout"
 
 const Cart = () => {
     //Now we can access to state what we created with zustand
@@ -27,6 +28,9 @@ const Cart = () => {
           >
             Back to store 🏃
           </button>
+          {/*Cart Items*/}
+          {cartStore.onCheckout === 'cart' && (
+            <>
         {cartStore.cart.map((item)=> (
           <motion.div layout key={item.id} className="flex py-4 gap-4">
             <Image className="rounded-md h-24" src={item.image} alt={item.name} height={120} width={120}/>
@@ -62,15 +66,20 @@ const Cart = () => {
           </motion.div>
           </motion.div>
         ))}
+        </>
+        )}
         {cartStore.cart.length ? <p>Total: {formatPrice(totalPrice)}</p> : ''}
         {cartStore.cart.length > 0 && (
         <motion.div layout>
         <button
-          className="py-2 mt-4 bg-emerald-700 w-full rounded-md text-white"
-        >
-          Checkout
-        </button>
+              onClick={() => cartStore.setCheckout("checkout")}
+              className="py-2 mt-4 bg-emerald-700 w-full rounded-md text-white"
+            >
+              Checkout
+            </button>
       </motion.div>)}
+      {/*Checkout form*/}
+      {cartStore.onCheckout === 'checkout' && <Checkout/>}
         <AnimatePresence>
         {!cartStore.cart.length && <motion.div animate={{scale:1, rotateZ: 0, opacity: 0.75}}
         initial={{scale:0.5, rotateZ: -10, opacity: 0}}

@@ -9,12 +9,18 @@ type CartStateType = {
     toggleCart: ()=>void
     addProduct: (item: AddCartType) => void
     removeProduct: (item: AddCartType) => void
+    paymentIntent: string
+    setPaymentIntent: (val:string) => void
+    onCheckout: string
+    setCheckout: (val:string) => void
 }
 
 export const useCartStore = create<CartStateType>()(
     persist((set) => ({
         cart: [],
         isOpen:false,
+        paymentIntent: '',
+        onCheckout: 'cart',
         //Set is basically means "modification", so when I would like to make any modification on any state, we should use that - State is actually everything what is in out CartState like Cart, isOpen, addProduct ect.
         toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
         addProduct: (item) =>
@@ -51,7 +57,9 @@ if(existingItem && existingItem.quantity! > 1 ) {
   const filteredCart = state.cart.filter((cartItem) => cartItem.id !== item.id)
   return {cart:filteredCart}
 }
-})
+}),
+setPaymentIntent: (val) => set((state) => ({ paymentIntent: val })),
+setCheckout: (val) => set((state) => ({ onCheckout: val })),
     }),
    {name: 'cart-store'}
 )

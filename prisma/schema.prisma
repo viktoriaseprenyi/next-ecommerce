@@ -21,6 +21,7 @@ model User {
 
 model Order {
     id              String    @id @default(cuid())
+    //This will make a connection for us between User and Orders, userId references to User's id
     user            User      @relation(fields: [userId], references: [id])
     userId          String
     amount          Float
