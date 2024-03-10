@@ -7,6 +7,7 @@ type CartStateType = {
     isOpen: boolean
     cart: AddCartType[]
     toggleCart: ()=>void
+    clearCart: ()=>void
     addProduct: (item: AddCartType) => void
     removeProduct: (item: AddCartType) => void
     paymentIntent: string
@@ -60,6 +61,7 @@ if(existingItem && existingItem.quantity! > 1 ) {
 }),
 setPaymentIntent: (val) => set((state) => ({ paymentIntent: val })),
 setCheckout: (val) => set((state) => ({ onCheckout: val })),
+clearCart: () => set((state)=> ({cart:[]}))
     }),
    {name: 'cart-store'}
 )

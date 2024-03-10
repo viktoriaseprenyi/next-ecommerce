@@ -7,6 +7,7 @@ import { IoAddCircle, IoRemoveCircle } from "react-icons/io5"
 import basket from "@/public/basket.png"
 import {AnimatePresence, motion} from "framer-motion";
 import Checkout from "./Checkout"
+import { OrderConfirmed } from "./OrderConfirmed"
 
 const Cart = () => {
     //Now we can access to state what we created with zustand
@@ -78,9 +79,9 @@ const Cart = () => {
         ))}
         </>
         )}
-        {cartStore.cart.length ? <p>Total: {formatPrice(totalPrice)}</p> : ''}
         {cartStore.cart.length > 0 && cartStore.onCheckout === 'cart' ? (
         <motion.div layout>
+          <p>Total: {formatPrice(totalPrice)}</p>
         <button
               onClick={() => cartStore.setCheckout("checkout")}
               className="py-2 mt-4 bg-emerald-700 w-full rounded-md text-white"
@@ -90,8 +91,9 @@ const Cart = () => {
       </motion.div>) : null}
       {/*Checkout form*/}
       {cartStore.onCheckout === 'checkout' && <Checkout/>}
+      {cartStore.onCheckout === 'success' && <OrderConfirmed/>}
         <AnimatePresence>
-        {!cartStore.cart.length && <motion.div animate={{scale:1, rotateZ: 0, opacity: 0.75}}
+        {!cartStore.cart.length && cartStore.onCheckout === 'cart' && <motion.div animate={{scale:1, rotateZ: 0, opacity: 0.75}}
         initial={{scale:0.5, rotateZ: -10, opacity: 0}}
         exit={{scale:0.5, rotateZ: -10, opacity: 0}}
         className="flex flex-col items-center gap-12 text-2xl font-medium pt-56 opacity-75">
