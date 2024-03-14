@@ -61,8 +61,23 @@ if(existingItem && existingItem.quantity! > 1 ) {
 }),
 setPaymentIntent: (val) => set((state) => ({ paymentIntent: val })),
 setCheckout: (val) => set((state) => ({ onCheckout: val })),
-clearCart: () => set((state)=> ({cart:[]}))
+clearCart: () => set((state)=> ({cart:[]})),
     }),
    {name: 'cart-store'}
 )
+)
+
+type ThemeState = {
+  mode: "light" | "dark"
+  toggleMode: (theme: "light" | "dark") => void
+}
+
+export const useThemeStore = create<ThemeState>()(
+  persist(
+    (set) => ({
+      mode: "light",
+      toggleMode: (theme) => set((state) => ({ mode: theme })),
+    }),
+    { name: "theme-store" }
+  )
 )

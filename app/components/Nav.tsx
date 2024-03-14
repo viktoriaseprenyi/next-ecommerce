@@ -8,6 +8,7 @@ import Cart from "./Cart";
 import { useCartStore } from "@/store";
 import {AiFillShopping} from "react-icons/ai"
 import {motion, AnimatePresence} from "framer-motion";
+import DarkLight from "./DarkLight";
 
 const Nav = ({user}:Session) => {
   //Now we can access to state what we created with zustand
@@ -18,7 +19,7 @@ const Nav = ({user}:Session) => {
       <Link href={'/'}>
         <h1>Styled</h1>
         </Link>
-        <ul className="flex items-center gap-12">
+        <ul className="flex items-center gap-8">
            {/* Toggle the cart */}
           <li onClick={() => cartStore.toggleCart()} className="flex text-3xl relative items-center cursor-pointer">
             <AiFillShopping/>
@@ -30,6 +31,8 @@ const Nav = ({user}:Session) => {
             )}
             </AnimatePresence>
           </li>
+          {/*Dark Mode*/}
+          <DarkLight/>
           {/*If the user is not signed in*/}
             {!user && (
                 <li className="bg-primary text-white py-2 px-4 rounded-md">
