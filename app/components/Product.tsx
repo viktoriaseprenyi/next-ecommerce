@@ -8,7 +8,7 @@ export default function Product({name,image,unit_amount,id, description}:Product
   return (
     //With query we can pass any info for example to the product page
     <Link href={{pathname:`/product/${id}`, query: {name, image, id, unit_amount, description}}}>
-      <div className="text-gray-700">
+      <div>
         <Image
           src={image}
           alt={name}
@@ -20,7 +20,7 @@ export default function Product({name,image,unit_amount,id, description}:Product
         <div className="font-medium py-3">
         <h1>{name}</h1>
         {/*If price is exists then format price for us otherwise gives N/A*/}
-        <h2 className="text-sm text-emerald-700">{unit_amount !== null ? formatPrice(unit_amount) : "N/A"}</h2>
+        <h2 className="text-sm text-primary">{unit_amount !== null ? formatPrice(unit_amount) : "N/A"}</h2>
         </div>
       </div>
       </Link>

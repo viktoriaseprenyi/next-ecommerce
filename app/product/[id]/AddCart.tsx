@@ -27,7 +27,7 @@ export default function AddCart({
       <button
         onClick={handleAddToCart}
         disabled={added}
-        className="bg-emerald-700 text-white my-12 rounded-lg py-2 px-6 font-medium"
+        className="my-4 btn btn-primary"
       >
         {!added && <span>Add to cart</span>}
         {added && <span>Adding to cart 😄</span>}

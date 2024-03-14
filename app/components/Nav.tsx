@@ -24,7 +24,7 @@ const Nav = ({user}:Session) => {
             <AiFillShopping/>
             <AnimatePresence>
             {cartStore.cart.length > 0 && (
-            <motion.span animate={{scale:1}} initial={{scale:0}} exit={{scale:0}} className="bg-emerald-700 text-white text-sm font-bold w-5 h-5 rounded-full absolute left-4 bottom-4 flex items-center justify-center">
+            <motion.span animate={{scale:1}} initial={{scale:0}} exit={{scale:0}} className="bg-primary text-white text-sm font-bold w-5 h-5 rounded-full absolute left-4 bottom-4 flex items-center justify-center">
             {cartStore.cart.length}
             </motion.span>
             )}
@@ -32,12 +32,14 @@ const Nav = ({user}:Session) => {
           </li>
           {/*If the user is not signed in*/}
             {!user && (
-                <li className="bg-emerald-700 text-white py-2 px-4 rounded-md">
+                <li className="bg-primary text-white py-2 px-4 rounded-md">
                 <button onClick={()=> signIn()}>Sign In</button>
                 </li>
             )}
             {user && (
+              <Link href={'/dashboard'}>
                 <Image className="rounded-full" src={user?.image as string} alt={user.name as string} width={36} height={36}/>
+                </Link>
             )}
         </ul>
         <AnimatePresence>{cartStore.isOpen && <Cart/>}</AnimatePresence>

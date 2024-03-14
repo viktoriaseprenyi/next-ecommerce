@@ -9,6 +9,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { CheckoutForm } from "./CheckoutForm"
+import OrderAnimation from "./OrderAnimation"
 
 
 const stripePromise = loadStripe(
@@ -54,12 +55,13 @@ export default function Checkout() {
 
   return (
     <div>
+      {!clientSecret && <OrderAnimation/>}
     {clientSecret && (
-        <div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Elements options={options} stripe={stripePromise}> {/*Make sure that stripe are loaded*/}
                 <CheckoutForm clientSecret={clientSecret}/>
             </Elements>
-        </div>
+        </motion.div>
     )}
     </div>
   )
