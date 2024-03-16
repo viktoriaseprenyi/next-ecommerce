@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { CheckoutForm } from "./CheckoutForm"
 import OrderAnimation from "./OrderAnimation"
+import { useThemeStore } from "@/store"
 
 
 const stripePromise = loadStripe(
@@ -22,8 +23,16 @@ export default function Checkout() {
   /*Authorize a payment, so the client secret gives the ability to confirm the payment and complete the transaction
   we generate this secret on the server side bc we dont want a user to be able to complete the transaction for us*/
   const [clientSecret, setClientSecret] = useState("")
+  const themeStore = useThemeStore()
+  const [stripeTheme, setStripeTheme] =useState<'flat' | 'stripe' | 'night' | 'none'>('stripe')
 
   useEffect(() => {
+    //Set stipre theme based on themeStore.mode
+    if(themeStore.mode === 'light'){
+      setStripeTheme('stripe')
+    } else {
+      setStripeTheme('night')
+    }
     //Create a paymentIntent as soon as the page loads up, and it will be a uniqe "id" that connects only one order
     fetch('/api/create-payment-intent', {
       method: "POST",
@@ -48,7 +57,7 @@ export default function Checkout() {
   const options : StripeElementsOptions = {
     clientSecret,
     appearance: {
-        theme: 'stripe',
+        theme: stripeTheme,
         labels: 'floating'
     }
   }
