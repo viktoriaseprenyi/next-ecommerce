@@ -2,7 +2,7 @@
 
 
 import Stripe from "stripe"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/util/prisma";
 //HTTP framework for Node.js
 import {buffer} from "micro"
 import { NextApiRequest, NextApiResponse } from "next"
@@ -17,9 +17,6 @@ export const config = {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
     apiVersion: "2022-11-15",
   })
-  
-  //Init prisma
-  const prisma = new PrismaClient();
 
   export default async function handler(req:NextApiRequest,res:NextApiResponse) {
     //Buffer gets the raw body from the request, stripe webhooks gives raw bites so we need to redos it to construct

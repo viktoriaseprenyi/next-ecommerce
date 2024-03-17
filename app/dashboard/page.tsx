@@ -43,7 +43,7 @@ const Dashboard = async ()=> {
                                     <div className="py-2">
                                         <h2 className="py-2">{product.name}</h2>
                                         <div className=" flex items-center gap-4">
-                                            <Image src={product.image!} alt={product.name} height={36} width={36}/>
+                                            <Image src={product.image!} alt={product.name} height={36} width={36}  priority={true} className="w-auto"/>
                                             <p>{formatPrice(product.unit_amount)}</p>
                                             <p>Quantity: {product.quantity}</p>
                                         </div>

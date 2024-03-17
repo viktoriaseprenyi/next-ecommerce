@@ -3,16 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { authOptions } from "./auth/[...nextauth]"
 import { getServerSession } from "next-auth"
 import { AddCartType } from "@/types/AddCartType"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/util/prisma";
 
 
 //Init stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
 })
-
-//Init prisma
-const prisma = new PrismaClient();
 
 //Calculate the whole orders total price
 const calculateOrderAmount = (items : AddCartType[]) => {
