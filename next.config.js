@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   typescript: {
-ignoreBuildErrors: true,
+    ignoreBuildErrors: true,
   },
   images:{
     domains:["lh3.googleusercontent.com", "files.stripe.com"]

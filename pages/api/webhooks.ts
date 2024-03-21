@@ -1,6 +1,5 @@
 //Webhooks used for update our database or run specific functions in our code
 
-
 import Stripe from "stripe"
 import { prisma } from "@/util/prisma";
 //HTTP framework for Node.js

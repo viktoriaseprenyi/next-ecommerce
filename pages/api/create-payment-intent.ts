@@ -23,7 +23,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //Get user - check if the user is logged in, is not jump back to the log in screen
+  //Get user - check if the user is logged in, if not jump back to the log in screen
   const userSession = await getServerSession(req, res, authOptions)
   if (!userSession?.user) {
     res.status(403).json({ message: "Not logged in" })
